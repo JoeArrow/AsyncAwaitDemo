@@ -42,6 +42,12 @@ namespace AsyncDemoLib
         }
 
         // ------------------------------------------------
+        /// <summary>
+        ///     By running synchronously, we will block
+        ///     everything until all calls are finished and
+        ///     returned.
+        /// </summary>
+        /// <param name="urls"></param>
 
         private void RunDownloadSync(List<string> urls)
         {
@@ -52,6 +58,13 @@ namespace AsyncDemoLib
         }
 
         // ------------------------------------------------
+        /// <summary>
+        ///     By awaiting each task indiviudually, we do not
+        ///     benefit from Parallel processing. But the UI 
+        ///     does remain responsive.
+        /// </summary>
+        /// <param name="urls"></param>
+        /// <returns></returns>
 
         private async Task RunDownloadAsync(List<string> urls)
         {
@@ -62,17 +75,33 @@ namespace AsyncDemoLib
         }
 
         // ------------------------------------------------
+        /// <summary>
+        ///     By gathering the Tasks, and awaiting them all,
+        ///     the calling method can continue on, and when
+        ///     these tasks are finished, this method will continue.
+        /// </summary>
+        /// <param name="urls"></param>
+        /// <returns></returns>
 
         private async Task RunDownloadParallelAsync(List<string> urls)
         {
             var tasks = new List<Task<WebsiteDataModel>>();
+
+            // ---------------------------------
+            // Gather Tasks running for each URL
 
             foreach(var url in urls)
             {
                 tasks.Add(DownloadWebsiteAsync(url));
             }
 
+            // ----------------------------
+            // Wait for all Tasks to finish
+
             var results = await Task.WhenAll(tasks);
+
+            // --------------------------
+            // Get results from each Task
 
             foreach(var item in results)
             {
@@ -81,6 +110,12 @@ namespace AsyncDemoLib
         }
 
         // ------------------------------------------------
+        /// <summary>
+        ///     Nothing asynchronous about this methiod. 
+        ///     It just gets the data as best it can.
+        /// </summary>
+        /// <param name="websiteURL"></param>
+        /// <returns></returns>
 
         private WebsiteDataModel DownloadWebsite(string websiteURL)
         {
@@ -100,6 +135,12 @@ namespace AsyncDemoLib
         }
 
         // ------------------------------------------------
+        /// <summary>
+        ///     Use the Asynchronous download method on the
+        ///     WebClient, and await its response.
+        /// </summary>
+        /// <param name="websiteURL"></param>
+        /// <returns></returns>
 
         private async Task<WebsiteDataModel> DownloadWebsiteAsync(string websiteURL)
         {
@@ -115,7 +156,7 @@ namespace AsyncDemoLib
             {
                 WebsiteUrl = websiteURL,
                 DataLength = data.Length,
-                DownloadTime = watch.ElapsedMilliseconds,
+                DownloadTime = watch.ElapsedMilliseconds / 1000.0,
             };
 
             return output;

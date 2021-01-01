@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwaitDemo", "AsyncAwai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemoLib", "AsyncDemoLib\AsyncDemoLib.csproj", "{9DAFB883-BC6F-42E3-98BB-FA3E79D66DFC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{07FE204A-C0CB-4517-BD78-55E8FA06EBB7}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\AboutJoeWare_Lib.dll = Lib\AboutJoeWare_Lib.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

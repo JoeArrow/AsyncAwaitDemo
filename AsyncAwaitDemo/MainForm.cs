@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 using AsyncDemoLib;
+using AboutJoeWare_Lib;
 
 namespace AsyncAwaitDemo
 {
@@ -16,6 +17,7 @@ namespace AsyncAwaitDemo
         {
             InitializeComponent();
             _paradigm = eParadigm.Synchronous;
+            lblFormSize.Text = Size.ToString();
         }
 
         // ------------------------------------------------
@@ -43,8 +45,29 @@ namespace AsyncAwaitDemo
             dgvData.DataSource = await demo.Execute(PrepData(), _paradigm);
             watch.Stop();
 
-            tbTime.Text = watch.ElapsedMilliseconds.ToString();
+            tbTime.Text = (watch.ElapsedMilliseconds/1000.000).ToString();
             Cursor = Cursors.Default;
+        }
+
+        // ------------------------------------------------
+
+        private void OnFormResize(object sender, EventArgs e)
+        {
+            lblFormSize.Text = Size.ToString();
+        }
+        
+        // ------------------------------------------------
+
+        private void OnShowSize(object sender, EventArgs e)
+        {
+            lblFormSize.Visible = !lblFormSize.Visible;
+        }
+
+        // ------------------------------------------------
+
+        private void OnAbout(object sender, EventArgs e)
+        {
+            new AboutJoeWareDlg().ShowDialog();
         }
 
         // ------------------------------------------------
@@ -54,6 +77,7 @@ namespace AsyncAwaitDemo
             var output = new List<string>();
 
             output.Add("https://www.cnn.com");
+            output.Add("http://www.aflac.com");
             output.Add("https://www.yahoo.com");
             output.Add("https://www.google.com");
             output.Add("https://www.microsoft.com");
