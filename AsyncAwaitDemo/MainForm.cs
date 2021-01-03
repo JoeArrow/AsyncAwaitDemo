@@ -45,7 +45,7 @@ namespace AsyncAwaitDemo
             dgvData.DataSource = await demo.Execute(PrepData(), _paradigm);
             watch.Stop();
 
-            tbTime.Text = (watch.ElapsedMilliseconds/1000.000).ToString();
+            tbTime.Text = (watch.ElapsedMilliseconds/1000.0).ToString();
             Cursor = Cursors.Default;
         }
 
